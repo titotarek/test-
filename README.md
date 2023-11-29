@@ -3,7 +3,7 @@
 Please read each note very carefully!
 Feel free to add/change the project structure to a clean architecture to your view.
 
-Create a simple CRUD application with Angular that implements the below model:
+Create a simple CRUD application with VueJ that implements the below model:
 ```
 Customer {
 	Firstname
@@ -16,7 +16,7 @@ Customer {
 ```
 ## Practices and patterns (Must):
 
-- [TDD](https://angular.io/guide/testing) [Wiki](https://en.wikipedia.org/wiki/Test-driven_development)
+- TDD [Wiki](https://en.wikipedia.org/wiki/Test-driven_development)
 - [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
 - [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development)
 - Clean git commits that shows your work progress.
