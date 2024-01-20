@@ -1,61 +1,47 @@
 <template>
-	<div id="app">
-		<customer-controller></customer-controller>
-		<!-- Other components or content -->
-	</div>
+  <div id="app">
+    <CustomerForm :updateCustomerList="updateCustomerList" />
+    <CustomerList :customers="customers" />
+    <!-- Other components or content -->
+  </div>
 </template>
 
 <script>
-import CustomerController from "./components/CustomerController.vue";
+import CustomerService from "./services/CustomerService";
+import CustomerForm from "./components/CustomerForm.vue";
+import CustomerList from "./components/CustomerList.vue";
 
 export default {
-	components: {
-		CustomerController,
-		// Other components
-	},
+  components: {
+    CustomerForm,
+    CustomerList,
+  },
+  data() {
+    return {
+      customers: [],
+    };
+  },
+  mounted() {
+    // Load customers on component mount
+    this.loadCustomers();
+  },
+  methods: {
+    loadCustomers() {
+      // Use the service to get the customers
+      this.customers = [...CustomerService.getCustomers()];
+    },
+    updateCustomerList(newCustomer) {
+      CustomerService.addCustomer(newCustomer);
+      this.customers.push(newCustomer);
+    },
+  },
 };
-
-// validatePhoneNumber(phoneNumber, countryCode) {
-		// 	// Check if the phone number is empty
-		// 	if (!phoneNumber) {
-		// 		this.validationErrors.PhoneNumber = "Phone number is required";
-		// 		return false;
-		// 	}
-
-		// 	try {
-		// 		const parsedPhoneNumber = PhoneNumberUtil.getInstance().parse(
-		// 			phoneNumber,
-		// 			countryCode
-		// 		);
-		// 		console.log("Parsed phone number:", parsedPhoneNumber);
-
-		// 		// Check if the parsed phone number is valid
-		// 		const isValid =
-		// 			parsedPhoneNumber &&
-		// 			PhoneNumberUtil.getInstance().isValidNumber(parsedPhoneNumber);
-
-		// 		if (!isValid) {
-		// 			this.validationErrors.PhoneNumber = "Invalid phone number";
-		// 			return false;
-		// 		}
-
-		// 		// Clear any previous validation error
-		// 		this.validationErrors.PhoneNumber = "";
-
-		// 		return true;
-		// 	} catch (error) {
-		// 		console.error("Error validating phone number:", error);
-		// 		this.validationErrors.PhoneNumber = "Error validating phone number";
-		// 		return false;
-		// 	}
-		// },
-
 </script>
 
 <style>
 body {
-	background-color: #f5f8fb;
-	font-family: "Lato", sans-serif;
-	font-family: "Montserrat", sans-serif;
+  background-color: #f5f8fb;
+  font-family: "Lato", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 </style>
