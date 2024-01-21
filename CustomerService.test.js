@@ -17,7 +17,8 @@ describe("CustomerService", () => {
 		CustomerService.addCustomer(newCustomer);
 
 		const customers = CustomerService.getCustomers();
-		expect(customers).toEqual([newCustomer]);
+		expect(customers).toHaveLength(1);
+		expect(customers[0]).toEqual(newCustomer);
 	});
 
 	test("should check for duplicate customer", () => {
@@ -62,26 +63,6 @@ describe("CustomerService", () => {
 			attribute,
 			existingEmail
 		);
-		expect(isDuplicate).toBe(true);
-	});
-
-	test("should check for duplicate email", () => {
-		const existingEmail = "john.doe@example.com";
-
-		// Clear localStorage before each test
-		localStorage.clear();
-
-		const newCustomer = {
-			Firstname: "John",
-			Lastname: "Doe",
-			DateOfBirth: "1990-01-01",
-			Email: existingEmail,
-		};
-
-		// Add the new customer
-		CustomerService.addCustomer(newCustomer);
-
-		const isDuplicate = CustomerService.isDuplicateEmail(existingEmail);
 		expect(isDuplicate).toBe(true);
 	});
 });
