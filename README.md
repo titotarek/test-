@@ -39,3 +39,71 @@ Customer {
 
 ### Delivery (Must)
 - Please clone this repository in a new GitHub repository in private mode and share with ID: `mason-chase` in private mode on github.com, make sure you do not erase my commits and then create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (code review).
+
+
+
+# Project Title
+
+## Overview
+
+Briefly describe the purpose and goals of your project.
+
+## Technologies Used
+
+List the technologies and frameworks used in your project.
+
+- Vue.js
+- Tailwind CSS
+- Google-libphonenumber
+- Font Awesome
+- Jest
+
+## Local Development
+
+Include instructions on how to set up and run the project locally.
+
+1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run serve`
+
+## Testing
+
+Briefly describe the testing approach and how to run tests.
+
+- Unit tests are written using Jest.
+- Run tests: `npm test`
+
+## Responsive Design
+
+Detail how the project is designed to be responsive, including the use of media queries and improvements for different screen sizes.
+
+## Clean Git Commits
+
+Follow a clean Git commit strategy to track your work progress.
+
+1. **Atomic Commits:** Make small, atomic commits that represent a single logical change.
+2. **Descriptive Commit Messages:** Write clear and descriptive commit messages.
+3. **Use Branches:** Work on feature branches and merge into the main branch when ready.
+4. **Follow Conventional Commits:** Optionally, follow a conventional commit format.
+
+## Recent Updates
+
+### [2024-01-12] - Initial Tests
+
+- Time spent: 2 hours
+- Implemented initial unit tests covering the core functionalities of the project.
+
+### [2024-01-17] - Design Iteration and Form Logic
+
+- Time spent: 3 hours
+- Refined overall design, focusing on improving the user interface.
+- Implemented additional logic for the form, including validation and enhanced user feedback.
+
+### [2024-01-20] - Form Validation and Additional Features
+
+- Time spent: 2 hours
+- Completed form validation with additional features:
+  - Added validation for all form fields.
+  - Improved error messaging.
+  - Implemented logic for preventing duplicate customer attributes.
+  - Refactored existing code for modularity and maintainability.

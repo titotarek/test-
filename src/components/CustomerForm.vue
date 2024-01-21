@@ -1,108 +1,124 @@
 <template>
-  <div class="custom-form">
-    <form class="form-container" @submit.prevent="submitForm">
-      <div class="form-header">
-        <h2>Create new customer</h2>
-        <button class="btn-save" type="submit">Save</button>
-      </div>
+	<div class="max-w-2xl mx-auto mt-8">
+		<form class="bg-blue-100 p-8 rounded-md" @submit.prevent="submitForm">
+			<div class="flex justify-between mb-4">
+				<h2 class="md:text-lg text-md font-bold">Create new customer</h2>
+				<button
+					class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+				>
+					Save
+				</button>
+			</div>
 
-      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+			<div v-if="errorMessage" class="text-red-500 mb-4">
+				{{ errorMessage }}
+			</div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="firstName">First name</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.FirstName"
-            id="firstName"
-            placeholder="Enter first name"
-            @input="clearValidationError('FirstName')"
-          />
-          <small class="text-muted">*Required</small>
-          <div v-if="validationErrors.FirstName" class="error-message">
-            {{ validationErrors.FirstName }}
-          </div>
-        </div>
+			<div class="flex flex-wrap -mx-2 mb-6">
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="firstName" class="block text-sm font-semibold text-gray-600 mb-1"
+						>First name</label
+					>
+					<input
+						v-model="newCustomer.firstName"
+						id="firstName"
+						placeholder="Enter first name"
+						class="w-full py-2 px-3 border rounded"
+						@input="clearValidationError('firstName')"
+					/>
+					<small class="text-gray-500">*Required</small>
+					<div v-if="validationErrors.firstName" class="text-red-500 text-sm">
+						{{ validationErrors.firstName }}
+					</div>
+				</div>
 
-        <div class="form-group">
-          <label for="lastName">Last name</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.LastName"
-            id="lastName"
-            placeholder="Enter last name"
-            @input="clearValidationError('LastName')"
-          />
-          <small class="text-muted">*Required</small>
-          <div v-if="validationErrors.LastName" class="error-message">
-            {{ validationErrors.LastName }}
-          </div>
-        </div>
-      </div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="lastName" class="block text-sm font-semibold text-gray-600 mb-1"
+						>Last name</label
+					>
+					<input
+						v-model="newCustomer.lastName"
+						id="lastName"
+						placeholder="Enter last name"
+						class="w-full py-2 px-3 border rounded"
+						@input="clearValidationError('lastName')"
+					/>
+					<small class="text-gray-500">*Required</small>
+					<div v-if="validationErrors.lastName" class="text-red-500 text-sm">
+						{{ validationErrors.lastName }}
+					</div>
+				</div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.Email"
-            id="email"
-            placeholder="Enter email address"
-            type="email"
-            @input="clearValidationError('Email')"
-          />
-          <small class="text-muted">*Required</small>
-          <div v-if="validationErrors.Email" class="error-message">
-            {{ validationErrors.Email }}
-          </div>
-        </div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="email" class="block text-sm font-semibold text-gray-600 mb-1"
+						>Email address</label
+					>
+					<input
+						v-model="newCustomer.email"
+						id="email"
+						placeholder="Enter email address"
+						type="email"
+						class="w-full py-2 px-3 border rounded"
+						@input="clearValidationError('email')"
+					/>
+					<small class="text-gray-500">*Required</small>
+					<div v-if="validationErrors.email" class="text-red-500 text-sm">
+						{{ validationErrors.email }}
+					</div>
+				</div>
 
-        <div class="form-group">
-          <label for="phoneNumber">Mobile number</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.PhoneNumber"
-            id="phoneNumber"
-            placeholder="e.g., +3162782746"
-          />
-          <small class="text-muted">*Required</small>
-          <div v-if="validationErrors.PhoneNumber" class="error-message">
-            {{ validationErrors.PhoneNumber }}
-          </div>
-        </div>
-      </div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="phoneNumber" class="block text-sm font-semibold text-gray-600 mb-1"
+						>Mobile number</label
+					>
+					<input
+						v-model="newCustomer.phoneNumber"
+						id="phoneNumber"
+						placeholder="e.g., +3162782746"
+						class="w-full py-2 px-3 border rounded"
+					/>
+					<small class="text-gray-500">*Required</small>
+					<div v-if="validationErrors.phoneNumber" class="text-red-500 text-sm">
+						{{ validationErrors.phoneNumber }}
+					</div>
+				</div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="dob">Date of Birth</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.DateOfBirth"
-            id="dob"
-            placeholder="Enter date of birth"
-            type="date"
-            @input="clearValidationError('DateOfBirth')"
-          />
-          <small class="text-muted">*Required</small>
-          <div v-if="validationErrors.DateOfBirth" class="error-message">
-            {{ validationErrors.DateOfBirth }}
-          </div>
-        </div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label for="dob" class="block text-sm font-semibold text-gray-600 mb-1"
+						>Date of Birth</label
+					>
+					<input
+						v-model="newCustomer.dateOfBirth"
+						id="dob"
+						placeholder="Enter date of birth"
+						type="date"
+						class="w-full py-2 px-3 border rounded"
+						@input="clearValidationError('dateOfBirth')"
+					/>
+					<small class="text-gray-500">*Required</small>
+					<div v-if="validationErrors.dateOfBirth" class="text-red-500 text-sm">
+						{{ validationErrors.dateOfBirth }}
+					</div>
+				</div>
 
-        <div class="form-group">
-          <label for="BankAccountNumber">Bank Account Number</label>
-          <input
-            class="form-control"
-            v-model="newCustomer.BankAccountNumber"
-            id="BankAccountNumber"
-            placeholder="Enter or scan loyalty card"
-            type="number"
-          />
-          <small class="text-muted">*Required</small>
-        </div>
-      </div>
-    </form>
-  </div>
+				<div class="w-full md:w-1/2 px-2 mb-4">
+					<label
+						for="bankAccountNumber"
+						class="block text-gray-600 mb-1 text-sm font-semibold"
+						>Bank Account Number</label
+					>
+					<input
+						v-model="newCustomer.bankAccountNumber"
+						id="bankAccountNumber"
+						placeholder="Enter or scan loyalty card"
+						type="number"
+						class="w-full py-2 px-3 border rounded"
+					/>
+					<small class="text-gray-500">*Required</small>
+				</div>
+			</div>
+		</form>
+	</div>
 </template>
 
 <script>
@@ -111,285 +127,187 @@ import { PhoneNumberUtil } from "google-libphonenumber";
 import CustomerService from "../services/CustomerService";
 
 export default {
-  props: ["updateCustomerList"],
-  data() {
-    return {
-      newCustomer: {
-        FirstName: "",
-        LastName: "",
-        DateOfBirth: "",
-        PhoneNumber: "",
-        Email: "",
-        BankAccountNumber: "",
-      },
-      validationErrors: {
-        Email: "",
-        PhoneNumber: "",
-        FirstName: "",
-        LastName: "",
-        DateOfBirth: "",
-      },
-      errorMessage: "", // General error message
-      editedField: null,
-    };
-  },
-  methods: {
-    clearValidationError(fieldName) {
-      this.validationErrors[fieldName] = "";
-      this.errorMessage = "";
-    },
+	props: ["updateCustomerList"],
+	data() {
+		return {
+			newCustomer: {
+				firstName: "",
+				lastName: "",
+				dateOfBirth: "",
+				phoneNumber: "",
+				email: "",
+				bankAccountNumber: "",
+			},
+			validationErrors: {
+				email: "",
+				phoneNumber: "",
+				firstName: "",
+				lastName: "",
+				dateOfBirth: "",
+			},
+			errorMessage: "", // General error message
+			editedField: null,
+		};
+	},
+	methods: {
+		clearValidationError(fieldName) {
+			this.validationErrors[fieldName] = "";
+			this.errorMessage = "";
+		},
 
-    validateEmail() {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.newCustomer.Email);
-    },
+		validateEmail() {
+			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.newCustomer.email);
+		},
 
-    validatePhoneNumber() {
-      const phoneNumber = this.newCustomer.PhoneNumber;
+		validatePhoneNumber() {
+			const phoneNumber = this.newCustomer.phoneNumber;
 
-      if (!phoneNumber) {
-        this.validationErrors.PhoneNumber = "Phone number is required";
-        return false;
-      }
+			if (!phoneNumber) {
+				this.validationErrors.phoneNumber = "Phone number is required";
+				return false;
+			}
 
-      // Remove dashes and spaces from the phone number
-      const cleanedPhoneNumber = phoneNumber.replace(/[-\s]/g, "");
-      console.log("Cleaned phone number:", cleanedPhoneNumber);
+			// Remove dashes and spaces from the phone number
+			const cleanedPhoneNumber = phoneNumber.replace(/[-\s]/g, "");
+			console.log("Cleaned phone number:", cleanedPhoneNumber);
 
-      // Extract country code from the input (assuming it's provided as the first part)
-      const countryCodeMatch = cleanedPhoneNumber.match(/^\+(\d+)/);
-      const countryCode = countryCodeMatch ? countryCodeMatch[1] : null;
-      console.log("Extracted country code:", countryCode);
+			// Extract country code from the input (assuming it's provided as the first part)
+			const countryCodeMatch = cleanedPhoneNumber.match(/^\+(\d+)/);
+			const countryCode = countryCodeMatch ? countryCodeMatch[1] : null;
+			console.log("Extracted country code:", countryCode);
 
-      if (!countryCode) {
-        this.validationErrors.PhoneNumber = "Please provide a country code";
-        return false;
-      }
+			if (!countryCode) {
+				this.validationErrors.phoneNumber = "Please provide a country code";
+				return false;
+			}
 
-      try {
-        const phoneUtil = PhoneNumberUtil.getInstance();
-        const parsedPhoneNumber = phoneUtil.parse(
-          cleanedPhoneNumber,
-          countryCode
-        );
+			try {
+				const phoneUtil = PhoneNumberUtil.getInstance();
+				const parsedPhoneNumber = phoneUtil.parse(
+					cleanedPhoneNumber,
+					countryCode
+				);
 
-        const isValid =
-          parsedPhoneNumber && phoneUtil.isValidNumber(parsedPhoneNumber);
+				const isValid =
+					parsedPhoneNumber && phoneUtil.isValidNumber(parsedPhoneNumber);
 
-        if (!isValid) {
-          this.validationErrors.PhoneNumber = "Invalid phone number";
-          return false;
-        }
+				if (!isValid) {
+					this.validationErrors.phoneNumber = "Invalid phone number";
+					return false;
+				}
 
-        this.validationErrors.PhoneNumber = "";
-        return true;
-      } catch (error) {
-        console.error("Error validating phone number:", error);
-        this.validationErrors.PhoneNumber = "Error validating phone number";
-        return false;
-      }
-    },
+				this.validationErrors.phoneNumber = "";
+				return true;
+			} catch (error) {
+				console.error("Error validating phone number:", error);
+				this.validationErrors.phoneNumber = "Error validating phone number";
+				return false;
+			}
+		},
 
-    validateField(fieldName) {
-      const nameDict = {
-        FirstName: "First name",
-        LastName: "Last name",
-        Email: "Email",
-        DateOfBirth: "Date of birth",
-        PhoneNumber: "Phone number",
-      };
+		validateField(fieldName) {
+			const nameDict = {
+				firstName: "First name",
+				lastName: "Last name",
+				email: "Email",
+				dateOfBirth: "Date of birth",
+				phoneNumber: "Phone number",
+			};
 
-      const customer = { ...this.newCustomer };
-      delete customer.BankAccountNumber;
-      const fieldValue = customer[fieldName];
+			const customer = { ...this.newCustomer };
+			delete customer.bankAccountNumber;
+			const fieldValue = customer[fieldName];
 
-      if (!fieldValue && fieldValue !== "BankAccountNumber") {
-        this.validationErrors[fieldName] = `${nameDict[fieldName]} is required`;
-        this.editedField = fieldName;
-      } else {
-        this.validationErrors[fieldName] = "";
-      }
+			if (!fieldValue && fieldValue !== "bankAccountNumber") {
+				this.validationErrors[fieldName] = `${nameDict[fieldName]} is required`;
+				this.editedField = fieldName;
+			} else {
+				this.validationErrors[fieldName] = "";
+			}
 
-      if (
-        fieldName !== "DateOfBirth" &&
-        this.isDuplicateCustomerAttribute(
-          fieldName,
-          this.newCustomer[fieldName]
-        )
-      ) {
-        this.validationErrors[
-          fieldName
-        ] = `${nameDict[fieldName]} has been taken.`;
-      }
+			if (
+				fieldName !== "dateOfBirth" &&
+				this.isDuplicateCustomerAttribute(
+					fieldName,
+					this.newCustomer[fieldName]
+				)
+			) {
+				this.validationErrors[
+					fieldName
+				] = `${nameDict[fieldName]} has been taken.`;
+			}
 
-      if (fieldName === "PhoneNumber" && fieldValue) {
-        const result = this.validatePhoneNumber();
-        return !!result;
-      }
+			if (fieldName === "phoneNumber" && fieldValue) {
+				const result = this.validatePhoneNumber();
+				return !!result;
+			}
 
-      return !!fieldValue;
-    },
+			return !!fieldValue;
+		},
 
-    isDuplicateCustomerAttribute(attribute, value) {
-      return CustomerService.getCustomers().some(
-        (existingCustomer) => existingCustomer[attribute] === value
-      );
-    },
+		isDuplicateCustomerAttribute(attribute, value) {
+			return CustomerService.getCustomers().some(
+				(existingCustomer) => existingCustomer[attribute] === value
+			);
+		},
 
-    submitForm() {
-      let allFieldsValid = true;
-      Object.keys(this.validationErrors).forEach(this.validateField);
+		submitForm() {
+			let allFieldsValid = true;
+			Object.keys(this.validationErrors).forEach(this.validateField);
 
-      if (Object.values(this.validationErrors).join("").length > 0) {
-        allFieldsValid = false;
-      }
+			if (Object.values(this.validationErrors).join("").length > 0) {
+				allFieldsValid = false;
+			}
 
-      if (allFieldsValid) {
-        // Clear error message before adding customer
-        this.errorMessage = "";
-        this.$props.updateCustomerList(this.newCustomer);
+			if (allFieldsValid) {
+				// Clear error message before adding customer
+				this.errorMessage = "";
+				this.$props.updateCustomerList(this.newCustomer);
 
-        // Manually reset the form
-        this.newCustomer = {
-          FirstName: "",
-          LastName: "",
-          DateOfBirth: "",
-          PhoneNumber: "",
-          Email: "",
-          BankAccountNumber: "",
-        };
+				// Manually reset the form
+				this.newCustomer = {
+					firstName: "",
+					lastName: "",
+					dateOfBirth: "",
+					phoneNumber: "",
+					email: "",
+					bankAccountNumber: "",
+				};
 
-        // Clear error messages
-        this.validationErrors = {
-          Email: "",
-          PhoneNumber: "",
-          FirstName: "",
-          LastName: "",
-          DateOfBirth: "",
-        };
+				// Clear error messages
+				this.validationErrors = {
+					email: "",
+					phoneNumber: "",
+					firstName: "",
+					lastName: "",
+					dateOfBirth: "",
+				};
 
-        // Reset edited field
-        this.editedField = null;
-      } else {
-        // Display a general error message
-        this.errorMessage =
-          "Form contains errors. Please fix them before submitting.";
-      }
-    },
-  },
-  watch: {
-    "newCustomer.FirstName": function () {
-      this.clearValidationError("FirstName");
-    },
-    "newCustomer.LastName": function () {
-      this.clearValidationError("LastName");
-    },
-    "newCustomer.DateOfBirth": function () {
-      this.clearValidationError("DateOfBirth");
-    },
-    "newCustomer.PhoneNumber": function () {
-      this.clearValidationError("PhoneNumber");
-    },
-    "newCustomer.Email": function () {
-      this.clearValidationError("Email");
-    },
-  },
+				// Reset edited field
+				this.editedField = null;
+			} else {
+				// Display a general error message
+				this.errorMessage =
+					"Form contains errors. Please fix them before submitting.";
+			}
+		},
+	},
+	watch: {
+		"newCustomer.firstName": function () {
+			this.clearValidationError("firstName");
+		},
+		"newCustomer.lastName": function () {
+			this.clearValidationError("lastName");
+		},
+		"newCustomer.dateOfBirth": function () {
+			this.clearValidationError("dateOfBirth");
+		},
+		"newCustomer.phoneNumber": function () {
+			this.clearValidationError("phoneNumber");
+		},
+		"newCustomer.email": function () {
+			this.clearValidationError("email");
+		},
+	},
 };
 </script>
-
-<style scoped>
-.input-with-icon {
-  position: relative;
-}
-
-.input-with-icon i {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.custom-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.form-container {
-  margin-top: 40px;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: #f5f8fb;
-}
-
-.form-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.btn-save {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-save:hover {
-  background-color: #0056b3;
-}
-
-.form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
-}
-
-.form-group {
-  flex: 0 0 48%;
-  margin-right: 4%;
-  position: relative;
-  margin-bottom: 15px;
-}
-
-.form-group:nth-child(even) {
-  margin-right: 0;
-}
-
-.label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.text-muted {
-  font-size: 0.8em;
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 0.8em;
-  padding-top: 5px;
-}
-
-.form-control-warning {
-  border-color: #ffc107;
-}
-
-.form-control-feedback {
-  font-size: 0.8em;
-  color: #ffc107;
-}
-</style>
