@@ -64,8 +64,6 @@
             v-model="newCustomer.PhoneNumber"
             id="phoneNumber"
             placeholder="e.g., +3162782746"
-            type="tel"
-            @blur="validatePhoneNumber"
           />
           <small class="text-muted">*Required</small>
           <div v-if="validationErrors.PhoneNumber" class="error-message">
@@ -92,14 +90,13 @@
         </div>
 
         <div class="form-group">
-          <label for="cardNumber">Card number</label>
+          <label for="BankAccountNumber">Bank Account Number</label>
           <input
             class="form-control"
-            v-model="newCustomer.CardNumber"
-            id="cardNumber"
+            v-model="newCustomer.BankAccountNumber"
+            id="BankAccountNumber"
             placeholder="Enter or scan loyalty card"
             type="number"
-            min="1"
           />
           <small class="text-muted">*Required</small>
         </div>
@@ -118,7 +115,6 @@ export default {
   data() {
     return {
       newCustomer: {
-        // TODO: use camel case
         FirstName: "",
         LastName: "",
         DateOfBirth: "",
@@ -164,6 +160,11 @@ export default {
       const countryCode = countryCodeMatch ? countryCodeMatch[1] : null;
       console.log("Extracted country code:", countryCode);
 
+      if (!countryCode) {
+        this.validationErrors.PhoneNumber = "Please provide a country code";
+        return false;
+      }
+
       try {
         const phoneUtil = PhoneNumberUtil.getInstance();
         const parsedPhoneNumber = phoneUtil.parse(
@@ -189,10 +190,20 @@ export default {
     },
 
     validateField(fieldName) {
-      const fieldValue = this.newCustomer[fieldName];
+      const nameDict = {
+        FirstName: "First name",
+        LastName: "Last name",
+        Email: "Email",
+        DateOfBirth: "Date of birth",
+        PhoneNumber: "Phone number",
+      };
 
-      if (!fieldValue) {
-        this.validationErrors[fieldName] = `${fieldName} is required`;
+      const customer = { ...this.newCustomer };
+      delete customer.BankAccountNumber;
+      const fieldValue = customer[fieldName];
+
+      if (!fieldValue && fieldValue !== "BankAccountNumber") {
+        this.validationErrors[fieldName] = `${nameDict[fieldName]} is required`;
         this.editedField = fieldName;
       } else {
         this.validationErrors[fieldName] = "";
@@ -205,12 +216,14 @@ export default {
           this.newCustomer[fieldName]
         )
       ) {
-        this.validationErrors[fieldName] = `${fieldName} has been taken.`;
+        this.validationErrors[
+          fieldName
+        ] = `${nameDict[fieldName]} has been taken.`;
       }
 
-      // Clear error message only for the currently edited field
-      if (this.editedField !== fieldName) {
-        this.errorMessage = "";
+      if (fieldName === "PhoneNumber" && fieldValue) {
+        const result = this.validatePhoneNumber();
+        return !!result;
       }
 
       return !!fieldValue;
@@ -223,26 +236,12 @@ export default {
     },
 
     submitForm() {
-      this.clearValidationError();
-
-      const fieldValidations = {
-        Email: this.validateEmail,
-        PhoneNumber: this.validatePhoneNumber,
-        FirstName: () => this.validateField("FirstName"),
-        LastName: () => this.validateField("LastName"),
-        DateOfBirth: () => this.validateField("DateOfBirth"),
-      };
-
       let allFieldsValid = true;
-      // Perform dynamic validation for each field
-      for (const [fieldName, validateFn] of Object.entries(fieldValidations)) {
-        const isValid = validateFn();
-        if (!isValid && this.editedField === fieldName) {
-          allFieldsValid = false;
-        }
-      }
+      Object.keys(this.validationErrors).forEach(this.validateField);
 
-      // Check for duplicate attributes
+      if (Object.values(this.validationErrors).join("").length > 0) {
+        allFieldsValid = false;
+      }
 
       if (allFieldsValid) {
         // Clear error message before adding customer
