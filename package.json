@@ -7,13 +7,14 @@
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
 		"test": "jest",
-    "build:css": "tailwindcss build src/style.css -o public/style.css"
+		"build:css": "tailwindcss build src/style.css -o public/style.css"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^6.5.1",
 		"core-js": "^3.8.3",
 		"google-libphonenumber": "^3.2.33",
 		"libphonenumber-js": "^1.10.53",
+		"nanoid": "^5.0.4",
 		"vue": "^3.2.13"
 	},
 	"devDependencies": {

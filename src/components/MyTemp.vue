@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<div class="max-w-2xl mx-auto mt-8">
 		<form class="bg-blue-100 p-8 rounded-md" @submit.prevent="submitForm">
 			<div class="flex justify-between mb-4">
@@ -137,7 +137,10 @@ import { PhoneNumberUtil } from "google-libphonenumber";
 import CustomerService from "../services/CustomerService";
 
 export default {
-	props: ["addCustomer", "editingCustomer", "updateCustomer"],
+	// props: ["updateCustomerList"],
+	props: {
+		customerData: Object,
+	},
 	data() {
 		return {
 			newCustomer: {
@@ -262,18 +265,6 @@ export default {
 		},
 
 		submitForm() {
-			if (this.$props.editingCustomer) {
-				this.$props.updateCustomer(this.newCustomer);
-				this.newCustomer = {
-					firstName: "",
-					lastName: "",
-					dateOfBirth: "",
-					phoneNumber: "",
-					email: "",
-					bankAccountNumber: "",
-				};
-				return null;
-			}
 			let allFieldsValid = true;
 			Object.keys(this.validationErrors).forEach(this.validateField);
 
@@ -284,7 +275,7 @@ export default {
 			if (allFieldsValid) {
 				// Clear error message before adding customer
 				this.errorMessage = "";
-				this.$props.addCustomer(this.newCustomer);
+				this.$props.updateCustomerList(this.newCustomer);
 
 				// Manually reset the form
 				this.newCustomer = {
@@ -330,9 +321,10 @@ export default {
 		"newCustomer.email": function () {
 			this.clearValidationError("email");
 		},
-		editingCustomer: function () {
-			this.newCustomer = { ...this.$props.editingCustomer };
-		},
 	},
 };
 </script>
+
+<style>
+/* Add any custom styles specific to CustomerForm.vue here */
+</style> -->
