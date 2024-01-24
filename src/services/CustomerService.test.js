@@ -1,5 +1,5 @@
-import CustomerService from "./src/services/CustomerService";
 import "jest-localstorage-mock";
+import CustomerService from "./src/services/CustomerService";
 
 beforeEach(() => {
 	localStorage.clear();

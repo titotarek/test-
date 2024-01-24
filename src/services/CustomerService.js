@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+import { v4 as uuidV4 } from "uuid";
 
 export default {
 	getCustomers() {
@@ -14,7 +14,7 @@ export default {
 
 	addCustomer(newCustomer) {
 		const customers = this.getCustomers();
-		newCustomer.id = nanoid();
+		newCustomer.id = uuidV4();
 		customers.push(newCustomer);
 		localStorage.setItem("customers", JSON.stringify(customers));
 	},
